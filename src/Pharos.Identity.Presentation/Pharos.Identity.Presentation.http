@@ -1,0 +1,6 @@
+@Pharos.Identity.Presentation_HostAddress = http://localhost:5026
+
+GET {{Pharos.Identity.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

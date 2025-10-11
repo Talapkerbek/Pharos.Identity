@@ -1,0 +1,182 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Welcome" xml:space="preserve">
+        <value>Привет</value>
+    </data>
+    <data name="Register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="LocalAccToLogin" xml:space="preserve">
+        <value>Используйте локальную учетную запись для входа в систему</value>
+    </data>
+    <data name="Email" xml:space="preserve">
+        <value>Почта</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
+    <data name="Remember me?" xml:space="preserve">
+        <value>Запомнить вход?</value>
+    </data>
+    <data name="ForgotPassword" xml:space="preserve">
+        <value>Забыли пароль?</value>
+    </data>
+    <data name="EmailRequired" xml:space="preserve">
+        <value>Введите почту.</value>
+    </data>
+    <data name="InvalidEmail" xml:space="preserve">
+        <value>Поле электронной почты не является действительным адресом электронной почты.</value>
+    </data>
+    <data name="PasswordRequired" xml:space="preserve">
+        <value>Поле для ввода пароля является обязательным.</value>
+    </data>
+    <data name="EnterEmail" xml:space="preserve">
+        <value>Введите почту.</value>
+    </data>
+    <data name="ResetPassword" xml:space="preserve">
+        <value>Сбросить пароль</value>
+    </data>
+    <data name="ForgotPasswordConfirmation" xml:space="preserve">
+        <value>Подтверждение сброса пароля</value>
+    </data>
+    <data name="CheckEmailPassword" xml:space="preserve">
+        <value>Пожалуйста, проверьте свою электронную почту, чтобы сбросить пароль.</value>
+    </data>
+    <data name="Hello" xml:space="preserve">
+        <value>Привет</value>
+    </data>
+    <data name="TwoFactorAuth" xml:space="preserve">
+        <value>Двухфакторная аутентификация</value>
+    </data>
+    <data name="PersonalData" xml:space="preserve">
+        <value>Персональные данные</value>
+    </data>
+    <data name="Profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="ManageAccount" xml:space="preserve">
+        <value>Управление своей учетной записью</value>
+    </data>
+    <data name="ChangeSettings" xml:space="preserve">
+        <value>Измените настройки своей учетной записи</value>
+    </data>
+    <data name="LastName" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="FirstName" xml:space="preserve">
+        <value>Имя</value>
+    </data>
+    <data name="ProfileUpdated" xml:space="preserve">
+        <value>Ваш профиль был обновлен</value>
+    </data>
+    <data name="ManageEmail" xml:space="preserve">
+        <value>Управление почтой</value>
+    </data>
+    <data name="NewEmail" xml:space="preserve">
+        <value>Новая почта</value>
+    </data>
+    <data name="ChangeEmail" xml:space="preserve">
+        <value>Поменять почту</value>
+    </data>
+    <data name="CurrentPassword" xml:space="preserve">
+        <value>Старый пароль</value>
+    </data>
+    <data name="EnterOldPassword" xml:space="preserve">
+        <value>Пожалуйста, введите свой старый пароль.</value>
+    </data>
+    <data name="EnterNewPassword" xml:space="preserve">
+        <value>Пожалуйста, введите свой новый пароль.</value>
+    </data>
+    <data name="ConfirmNewPassword" xml:space="preserve">
+        <value>Введите новый пароль еще раз</value>
+    </data>
+    <data name="UpdatePassword" xml:space="preserve">
+        <value>Изменить пароль</value>
+    </data>
+    <data name="PersonalDataDesc" xml:space="preserve">
+        <value>Ваша учетная запись содержит персональные данные, которые вы нам предоставили. На этой странице вы можете загрузить или удалить эти данные.</value>
+    </data>
+    <data name="DeletePersonalData" xml:space="preserve">
+        <value>Удаление этих данных приведет к необратимому удалению вашей учетной записи, и восстановить ее будет невозможно.</value>
+    </data>
+    <data name="EnterNewEmail" xml:space="preserve">
+        <value>Введит новую почту.</value>
+    </data>
+    <data name="PasswordsNotMatch" xml:space="preserve">
+        <value>Новый пароль и пароль для подтверждения не совпадают.</value>
+    </data>
+    <data name="NewPassword" xml:space="preserve">
+        <value>Новый пароль</value>
+    </data>
+    <data name="ConfirmPass" xml:space="preserve">
+        <value>Подтверждение нового пароля</value>
+    </data>
+    <data name="PasswordLength" xml:space="preserve">
+        <value>Длина нового пароля должна составлять не менее 6 и не более 100 символов соответственно.</value>
+    </data>
+    <data name="DidntFindAccToExProvider" xml:space="preserve">
+        <value>Мы не нашли действительный аккаунт привязанный к вашему внешнему аккаунту </value>
+    </data>
+    <data name="LinkExProvider" xml:space="preserve">
+        <value>. Если вы еще не привязали внешний сервис входа, можете сделать это в настройках профиля после входа через пароль.</value>
+    </data>
+    <data name="ExternalProvider" xml:space="preserve">
+        <value>Вход через сторонний провайдер.</value>
+    </data>
+    <data name="2faProtected" xml:space="preserve">
+        <value>Ваш логин защищен с помощью приложения для проверки подлинности. Введите свой код для проверки подлинности ниже.</value>
+    </data>
+    <data name="2fa" xml:space="preserve">
+        <value>Двухфакторная аутентификация</value>
+    </data>
+    <data name="RememberMachine" xml:space="preserve">
+        <value>Запомнить это устройство</value>
+    </data>
+    <data name="Forget2fa" xml:space="preserve">
+        <value>У вас нет доступа к вашему устройству аутентификации? Ты можешь</value>
+    </data>
+    <data name="RecoveryCode" xml:space="preserve">
+        <value>войти в систему с кодом восстановления</value>
+    </data>
+    <data name="AuthCode" xml:space="preserve">
+        <value>Код аутентификатора</value>
+    </data>
+    <data name="RegisteredLogins" xml:space="preserve">
+        <value>Привязанные сервисы</value>
+    </data>
+    <data name="ManageExternalLogins" xml:space="preserve">
+        <value>Управляйте своими внешними учетными записями для входа в систему</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Отвязать</value>
+    </data>
+    <data name="AddExProvider" xml:space="preserve">
+        <value>Добавьте другую службу для входа в систему.</value>
+    </data>
+    <data name="Logout" xml:space="preserve">
+        <value>Выйти из аккаунта</value>
+    </data>
+    <data name="GoBackToPortal" xml:space="preserve">
+        <value>Вернуться в портал</value>
+    </data>
+    <data name="EmailOrLogin" xml:space="preserve">
+        <value>Электронная почта или логин</value>
+    </data>
+    <data name="EmailOrLoginRequired" xml:space="preserve">
+        <value>Электронная почта или логин должны быть заполнены</value>
+    </data>
+</root>

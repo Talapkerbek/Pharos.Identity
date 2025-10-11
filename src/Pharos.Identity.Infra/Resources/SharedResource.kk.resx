@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+    </resheader>
+  
+    <!-- Ключ и перевод -->
+    <data name="Welcome" xml:space="preserve">
+    <value>Қош келдіңіз!</value>
+  </data>
+    <data name="Register" xml:space="preserve">
+        <value>Тіркелу</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+        <value>Кіру</value>
+    </data>
+    <data name="LocalAccToLogin" xml:space="preserve">
+        <value>Жүйеге кіру үшін жергілікті аккаунтыныздыі пайдаланыңыз</value>
+    </data>
+    <data name="Email" xml:space="preserve">
+        <value>Пошта</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Құпия сөз</value>
+    </data>
+    <data name="Remember me?" xml:space="preserve">
+        <value>Кіруді есте сақтау керекпе?</value>
+    </data>
+    <data name="ForgotPassword" xml:space="preserve">
+        <value>Құпия сөзді ұмыттыңызба?</value>
+    </data>
+    <data name="EmailRequired" xml:space="preserve">
+        <value>Поштаны жазу міндетті.</value>
+    </data>
+    <data name="InvalidEmail" xml:space="preserve">
+        <value>Пошта өрісі жарамды электрондық пошта мекенжайы емес.</value>
+    </data>
+    <data name="PasswordRequired" xml:space="preserve">
+        <value>Құпия сөз өрісі толтырылуы міндетті.</value>
+    </data>
+    <data name="EnterEmail" xml:space="preserve">
+        <value>Поштаңызды жазыңыз</value>
+    </data>
+    <data name="ResetPassword" xml:space="preserve">
+        <value>Құпия сөзді қалпына келтіру</value>
+    </data>
+    <data name="ForgotPasswordConfirmation" xml:space="preserve">
+        <value>Құпия сөзді ұмытуды растау</value>
+    </data>
+    <data name="CheckEmailPassword" xml:space="preserve">
+        <value>Құпия сөзді қалпына келтіру үшін электрондық поштаңызды тексеріңіз.</value>
+    </data>
+    <data name="Hello" xml:space="preserve">
+        <value>Сәлем</value>
+    </data>
+    <data name="TwoFactorAuth" xml:space="preserve">
+        <value>Екі факторлы аутентификация</value>
+    </data>
+    <data name="PersonalData" xml:space="preserve">
+        <value>Жеке ақпарат</value>
+    </data>
+    <data name="ManageAccount" xml:space="preserve">
+        <value>Жеке ақпаратты басқару</value>
+    </data>
+    <data name="ChangeSettings" xml:space="preserve">
+        <value>Аккаунт параметрлерін өзгертіңіз</value>
+    </data>
+    <data name="LastName" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="FirstName" xml:space="preserve">
+        <value>Есім</value>
+    </data>
+    <data name="ProfileUpdated" xml:space="preserve">
+        <value>Сіздің профиліңіз жаңартылды</value>
+    </data>
+    <data name="ManageEmail" xml:space="preserve">
+        <value>Поштаны басқару</value>
+    </data>
+    <data name="NewEmail" xml:space="preserve">
+        <value>Жаңа пошта</value>
+    </data>
+    <data name="ChangeEmail" xml:space="preserve">
+        <value>Поштаны өзгерту</value>
+    </data>
+    <data name="CurrentPassword" xml:space="preserve">
+        <value>Қазіргі кұпия сөз</value>
+    </data>
+    <data name="EnterOldPassword" xml:space="preserve">
+        <value>Ескі парольді енгізіңіз.</value>
+    </data>
+    <data name="EnterNewPassword" xml:space="preserve">
+        <value>Жаңа құпия сөзді енгізіңіз.</value>
+    </data>
+    <data name="ConfirmNewPassword" xml:space="preserve">
+        <value>Жаңа құпия сөзді қайттан теріңіз</value>
+    </data>
+    <data name="UpdatePassword" xml:space="preserve">
+        <value>Құпия сөзді өзгерту</value>
+    </data>
+    <data name="Profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="PersonalDataDesc" xml:space="preserve">
+        <value>Сіздің есептік жазбаңызда сіз бізге берген жеке деректер бар. Бұл бет сол деректерді жүктеп алуға немесе жоюға мүмкіндік береді.</value>
+    </data>
+    <data name="DeletePersonalData" xml:space="preserve">
+        <value>Бұл деректерді жою сіздің есептік жазбаңызды біржола жояды және оны қалпына келтіру мүмкін емес.</value>
+    </data>
+    <data name="EnterNewEmail" xml:space="preserve">
+        <value>Жаңа поштаңызды жазыңыз</value>
+    </data>
+    <data name="PasswordsNotMatch" xml:space="preserve">
+        <value>Жаңа пароль мен растау паролі сәйкес келмейді.</value>
+    </data>
+    <data name="NewPassword" xml:space="preserve">
+        <value>Жаңа құпия сөз</value>
+    </data>
+    <data name="ConfirmPass" xml:space="preserve">
+        <value>Жаңа құпия сөзді растау</value>
+    </data>
+    <data name="PasswordLength" xml:space="preserve">
+        <value>Жаңа құпия сөз кемінде 6 және ең көбі 100 таңбадан тұруы керек.</value>
+    </data>
+    <data name="DidntFindAccToExProvider" xml:space="preserve">
+        <value>Біз сіздің сыртқы есептік жазбаңызға байланысты жарамды есептік жазбаны таппадық </value>
+    </data>
+    <data name="LinkExProvider" xml:space="preserve">
+        <value>. Егер сіз сыртқы кіру қызметін әлі байланыстырмаған болсаңыз, оны құпия сөз арқылы кіргеннен кейін профиль параметрлерінде байланыстыра аласыз.</value>
+    </data>
+    <data name="ExternalProvider" xml:space="preserve">
+        <value>Сыртқы сервис арқылы кіру.</value>
+    </data>
+    <data name="2faProtected" xml:space="preserve">
+        <value>Сіздің логиніңіз аутентификатор қолданбасымен қорғалған. Төменде аутентификатор кодын енгізіңіз.</value>
+    </data>
+    <data name="2fa" xml:space="preserve">
+        <value>Екі факторлы аутентификация</value>
+    </data>
+    <data name="RememberMachine" xml:space="preserve">
+        <value>Бұл құрылғыны есте сақтаңыз</value>
+    </data>
+    <data name="Forget2fa" xml:space="preserve">
+        <value>Аутентификатор құрылғысына кіру мүмкіндігіңіз жоқ па? Сіз </value>
+    </data>
+    <data name="RecoveryCode" xml:space="preserve">
+        <value>қалпына келтіру кодымен жүйеге кіре аласыз</value>
+    </data>
+    <data name="AuthCode" xml:space="preserve">
+        <value>Аутентификатор коды</value>
+    </data>
+    <data name="RegisteredLogins" xml:space="preserve">
+        <value>Байланыстырылған сыртқы сервистер</value>
+    </data>
+    <data name="ManageExternalLogins" xml:space="preserve">
+        <value>Сыртқы логиндерді басқарыңыз</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Байланысты жою</value>
+    </data>
+    <data name="AddExProvider" xml:space="preserve">
+        <value>Жүйеге кіру үшін жаңа сыртқы сервисті байлаңыстыру.</value>
+    </data>
+    <data name="Logout" xml:space="preserve">
+        <value>Аккаунттаң шығу</value>
+    </data>
+    <data name="GoBackToPortal" xml:space="preserve">
+        <value>Порталға оралу</value>
+    </data>
+    <data name="EmailOrLogin" xml:space="preserve">
+        <value>Электрондық пошта немесе логин</value>
+    </data>
+    <data name="EmailOrLoginRequired" xml:space="preserve">
+        <value>Электрондық пошта немесе логин толтырылуы міндетті</value>
+    </data>
+</root>
