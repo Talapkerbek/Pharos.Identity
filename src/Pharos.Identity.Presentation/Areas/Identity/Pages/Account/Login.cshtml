@@ -24,16 +24,34 @@
                 <p style="color: black; font-size: 16px; font-weight: 400; word-wrap: break-word; margin-bottom: 14px;">Enter your username or email address</p>
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-4">
-                    <input asp-for="Input.Email" class="form-control text-white" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
                     <label asp-for="Input.Email" class="form-label bg-transparent">Username or Email address</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
                 <p style="color: black; font-size: 16px; font-weight: 400; word-wrap: break-word; margin-bottom: 14px;">Enter your password</p>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control text-white" autocomplete="current-password" aria-required="true" placeholder="password"/>
+                <div class="form-floating mb-3 position-relative">
+                    <input 
+                        asp-for="Input.Password" 
+                        class="form-control" 
+                        id="passwordInput"
+                        type="password"
+                        autocomplete="current-password" 
+                        placeholder="password"
+                    />
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                    <!-- Глазок -->
+                    <button 
+                        id="toggleBtn"
+                        type="button" 
+                        class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                        onclick="togglePassword()"
+                        tabindex="-1"
+                    >
+                        👁
+                    </button>
                 </div>
 
                 <p class="" style="text-align: right; color: #AD3113; font-size: 13px;  font-weight: 400; word-wrap: break-word; margin-bottom: 32px">
@@ -98,4 +116,22 @@
     </div>*@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        let passwordInput = document.getElementById('passwordInput');
+        let toggleButton = document.getElementById('toggleBtn');
+        
+        passwordInput.addEventListener("change", e => {
+            if (e.target.value === "") {
+                toggleButton.styles.display = "none"
+            }
+            else {
+                toggleButton.style.display = "block"
+            }
+        });
+    </script>
 }

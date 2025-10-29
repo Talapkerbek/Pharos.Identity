@@ -5,6 +5,8 @@ using JasperFx.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using Pharos.Identity.Contracts;
+using Pharos.Media.Contracts;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
 using Wolverine.ErrorHandling;
@@ -70,8 +72,10 @@ public static class Extensions
                 });*/
     
             opts.UseKafka("localhost:9094").AutoProvision();
+            opts.PublishMessage<UserCreatedEvent>().ToKafkaTopic("User");
             
-            // opts.PublishMessage<UserCreatedEvent>().ToKafkaTopic("UserCreatedEvent");
+            opts.ListenToKafkaTopic("Media");
+            opts.PublishMessage<DeleteFileReferenceCommand>().ToKafkaTopic("Media");
             
             var connectionString = configuration.GetConnectionString("PostgresSQL");
 

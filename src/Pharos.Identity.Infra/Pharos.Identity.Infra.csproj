@@ -23,6 +23,7 @@
     <PackageReference Include="OpenIddict.AspNetCore" Version="7.1.0" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="7.1.0" />
     <PackageReference Include="Pharos.Identity.Contracts" Version="1.0.4" />
+    <PackageReference Include="Pharos.Media.Contracts" Version="1.0.8" />
     
     <PackageReference Include="WolverineFx.EntityFrameworkCore" Version="4.11.0" />
     <PackageReference Include="WolverineFx.Postgresql" Version="4.11.0" />

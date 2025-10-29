@@ -1,30 +1,142 @@
 ﻿@page
+@using Microsoft.Extensions.Localization
+@using Pharos.Identity.Infra
 @model IndexModel
+@inject IStringLocalizer<SharedResource> Localizer
+
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = Localizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
+<div>
+<h3 style="font-family: Montserrat, sans-serif; font-weight: 600; margin-bottom: 25px; text-align: center;">
+    @ViewData["Title"]
+</h3>
+
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+
+<div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    background: white;
+    max-width: 520px;
+    margin: 0 auto;
+    font-family: Montserrat, sans-serif;
+">
+
+    <!-- Avatar preview -->
+    <div style="text-align: center;">
+        <div style="position: relative; display: inline-block;">
+            <img id="avatar-preview"
+                 src="@Model.Input.InitialAvatarPath"
+                 alt="Avatar"
+                 style="
+                     width: 120px;
+                     height: 120px;
+                     border-radius: 50%;
+                     object-fit: cover;
+                     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                     transition: transform 0.2s ease;
+                     cursor: pointer;
+                 "
+                 onmouseover="this.style.transform='scale(1.05)'"
+                 onmouseout="this.style.transform='scale(1)'"
+            />
+        </div>
+
+        
     </div>
+
+    <!-- Profile form -->
+    <form id="profile-form"
+          method="post"
+          enctype="multipart/form-data"
+          style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"
+             style="color: #d9534f; font-size: 14px;"></div>
+        
+        <input type="file"
+               id="avatarInput"
+               name="AvatarFile"
+               accept="image/*"
+               style="display:none;" />
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label asp-for="Input.FirstName" style="font-weight: 600; font-size: 15px;"></label>
+            <input asp-for="Input.FirstName"
+                   style="
+                       padding: 10px 12px;
+                       border: 1px solid #ccc;
+                       border-radius: 8px;
+                       font-size: 14px;
+                       transition: border-color 0.2s;
+                   "
+                   onfocus="this.style.borderColor='#007bff'"
+                   onblur="this.style.borderColor='#ccc'" />
+            <span asp-validation-for="Input.FirstName" style="color: #d9534f; font-size: 13px;"></span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label asp-for="Input.LastName" style="font-weight: 600; font-size: 15px;"></label>
+            <input asp-for="Input.LastName"
+                   style="
+                       padding: 10px 12px;
+                       border: 1px solid #ccc;
+                       border-radius: 8px;
+                       font-size: 14px;
+                       transition: border-color 0.2s;
+                   "
+                   onfocus="this.style.borderColor='#007bff'"
+                   onblur="this.style.borderColor='#ccc'" />
+            <span asp-validation-for="Input.LastName" style="color: #d9534f; font-size: 13px;"></span>
+        </div>
+
+        <button id="update-profile-button"
+                type="submit"
+                style="
+                    width: 100%;
+                    padding: 12px;
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background-color 0.25s ease, transform 0.15s ease;
+                "
+                onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-1px)'"
+                onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='none'">
+            @Localizer["Save"]
+        </button>
+    </form>
+</div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        const fileInput = document.getElementById('avatarInput');
+        const preview = document.getElementById('avatar-preview');
+        
+        preview.addEventListener("click", (event) => {
+            fileInput.click()
+        })
+        
+        fileInput?.addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => { preview.src = reader.result; };
+            reader.readAsDataURL(file);
+        });
+    </script>
 }

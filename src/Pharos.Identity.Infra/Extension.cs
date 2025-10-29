@@ -1,11 +1,17 @@
 ﻿using System.Reflection;
 using JasperFx;
 using JasperFx.Core;
+using JasperFx.Resources;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
+using Pharos.Media.Contracts;
 using Wolverine;
+using Wolverine.EntityFrameworkCore;
 using Wolverine.ErrorHandling;
 using Wolverine.FluentValidation;
+using Wolverine.Kafka;
+using Wolverine.Postgresql;
 
 namespace Pharos.Identity.Infra;
 
@@ -14,7 +20,8 @@ public static class Extensions
     public static ConfigureHostBuilder AddWolverineWithAssemblyDiscovery
     (
         this ConfigureHostBuilder host,
-        Assembly handlersAssembly
+        IConfiguration configuration,
+        List<Assembly> assemblies 
     )
     {
         
@@ -62,7 +69,25 @@ public static class Extensions
                     // configure admin client builders
                 });*/
     
-            opts.Discovery.IncludeAssembly(handlersAssembly);
+            
+            opts.UseKafka("localhost:9094").AutoProvision();
+            
+            opts.ListenToKafkaTopic("Media");
+            opts.PublishMessage<DeleteFileReferenceCommand>().ToKafkaTopic("Media");
+            
+            var connectionString = configuration.GetConnectionString("PostgresSQL");
+
+            if (connectionString == null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            opts.PersistMessagesWithPostgresql(connectionString, "wolverine");
+
+            foreach (var assembly in assemblies) 
+            {
+                opts.Discovery.IncludeAssembly(assembly);
+            }
     
             // Adding outbox on all publish
             opts.Policies.UseDurableOutboxOnAllSendingEndpoints();
@@ -78,6 +103,8 @@ public static class Extensions
             opts.Policies.AutoApplyTransactions();
             
             opts.UseFluentValidation();
+
+            host.UseResourceSetupOnStartup();
 
         });
         

@@ -1,14 +1,31 @@
-using System.Reflection;
+using Pharos.Identity.Application.Features.GetPresignedUrlForAvatarLogo;
+using Pharos.Identity.Application.Services.MediaClient;
+using Pharos.Identity.Application.Services.TokenService;
 using Pharos.Identity.Infra;
 using Pharos.Identity.Infra.Auth;
 using Pharos.Identity.Infra.Data;
-using Pharos.Identity.Infra.HostedServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLocalizedRazor();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
-builder.Host.AddWolverineWithAssemblyDiscovery(typeof(Program).Assembly);
+builder.Services.AddLocalizedRazor();
+builder.Services
+    .AddMemoryCache()
+    .AddTokenService()
+    .AddMediaServiceClient();
+
+builder.Host
+    .AddWolverineWithAssemblyDiscovery(builder.Configuration, [typeof(Program).Assembly, typeof(GetPresignedUrlForAvatarLogoHandler).Assembly]);
 
 builder.Services
     .AddEFDbContext(builder.Configuration)
@@ -23,6 +40,7 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
+app.UseRequestLocalization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -32,11 +50,14 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 // app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseRouting();
 
+app.UseCors();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.MapRazorPages();
 
 app.Run();
-

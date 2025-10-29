@@ -69,10 +69,10 @@
         <value>Профиль</value>
     </data>
     <data name="ManageAccount" xml:space="preserve">
-        <value>Управление своей учетной записью</value>
+        <value>Управление аккаунтом</value>
     </data>
     <data name="ChangeSettings" xml:space="preserve">
-        <value>Измените настройки своей учетной записи</value>
+        <value>Измените настройки своего аккаунта</value>
     </data>
     <data name="LastName" xml:space="preserve">
         <value>Фамилия</value>

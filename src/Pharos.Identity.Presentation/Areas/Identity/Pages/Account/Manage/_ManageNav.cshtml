@@ -1,16 +1,92 @@
+@using Microsoft.Extensions.Localization
+@using Pharos.Identity.Infra
 @using Pharos.Identity.Infra.Data
 @inject SignInManager<ApplicationUser> SignInManager
+@inject IStringLocalizer<SharedResource> Localizer;
+
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
-    {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+
+<div style="width: 100%">
+    <div class="row flex-md-nowrap m-lg-0 justify-content-center">
+        <!-- Sidebar -->
+        <nav class="col-10 bg-light border rounded shadow-sm p-3 mb-3 mb-md-0">
+            <h6 class="text-uppercase text-secondary fw-semibold mb-3 small">@Localizer["Settings"]</h6>
+
+            <ul class="nav nav-pills flex-row flex-md-column gap-1 w-100 justify-content-around justify-content-md-start">
+                <li class="nav-item">
+                    <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+                        <i class="bi bi-person-circle me-2"></i>@Localizer["Profile"]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">
+                        <i class="bi bi-envelope me-2"></i>@Localizer["Email"]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                        <i class="bi bi-lock me-2"></i>@Localizer["Password"]
+                    </a>
+                </li>
+                @if (hasExternalLogins)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" id="external-login" asp-page="./ExternalLogins">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>@Localizer["External logins"]
+                        </a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">
+                        <i class="bi bi-shield-lock me-2"></i>@Localizer["Two-factor authentication"]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">
+                        <i class="bi bi-person-lines-fill me-2"></i>@Localizer["Personal data"]
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<style>
+    .nav-pills .nav-link {
+        color: #333;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        padding: 8px 12px;
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
-</ul>
+
+    .nav-pills .nav-link.active,
+    .nav-pills .nav-link:hover {
+        background-color: #0d6efd;
+        color: #fff !important;
+    }
+
+    .nav-pills .nav-link i {
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    @@media (max-width: 768px) {
+        nav {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            margin: auto;
+        }
+
+        .nav-pills {
+            flex-direction: column !important;
+            flex-wrap: wrap;
+            overflow-x: hidden;
+            padding-bottom: 4px;
+        }
+    }
+</style>

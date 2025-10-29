@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenIddict.Abstractions;
+using OpenIddict.Server;
 using Pharos.Identity.Infra.Data;
 using Pharos.Identity.Infra.HostedServices;
 using Pharos.Identity.Infra.Settings;
@@ -28,7 +30,7 @@ public static class IdentityServerExtension
             .AddServer(opt =>
             {
                 opt.SetIssuer(settings.Issuer);
-                
+
                 // TODO: Change with real certificates
                 opt
                     .AddEphemeralEncryptionKey()
@@ -39,15 +41,19 @@ public static class IdentityServerExtension
                     .SetAuthorizationEndpointUris("/connect/authorize")
                     .SetTokenEndpointUris("/connect/token");
                 
-                opt.SetEndSessionEndpointUris("/connect/endsession")
+                opt
+                    .SetEndSessionEndpointUris("/connect/endsession")
                     .SetUserInfoEndpointUris("/connect/userinfo");
                 
-                opt.AllowAuthorizationCodeFlow()
+                opt
+                    .AllowClientCredentialsFlow()
+                    .AllowRefreshTokenFlow()
+                    .AllowAuthorizationCodeFlow()
                     .RequireProofKeyForCodeExchange();
 
                 opt.AddDevelopmentEncryptionCertificate()
                     .AddDevelopmentSigningCertificate();
-
+                
                 opt.UseAspNetCore()
                     .EnableTokenEndpointPassthrough()
                     .EnableAuthorizationEndpointPassthrough()

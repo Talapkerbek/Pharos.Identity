@@ -58,7 +58,7 @@ public class IdentityServerSeedHostedService(IServiceProvider serviceProvider, I
                         ClientSecret = client.ClientSecret,
                         DisplayName = client.DisplayName
                     };
-
+                    
                     foreach (var redirectUri in client.RedirectUris)
                     {
                         clientDescriptor.RedirectUris.Add(new Uri(redirectUri));

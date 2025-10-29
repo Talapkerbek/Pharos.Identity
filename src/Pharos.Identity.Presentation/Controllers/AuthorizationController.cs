@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using OpenIddict.Validation.AspNetCore;
+using Pharos.Identity.Application.Features.GetUserInfo;
 using Pharos.Identity.Infra.Data;
+using Wolverine;
 
 namespace Pharos.Identity.Presentation.Controllers;
 
-public class AuthorizationController(UserManager<ApplicationUser> userManager) : Controller
+public class AuthorizationController(IMessageBus messageBus) : Controller
 {
     [HttpGet("~/connect/authorize")]
     [HttpPost("~/connect/authorize")]
@@ -84,7 +87,7 @@ public class AuthorizationController(UserManager<ApplicationUser> userManager) :
         // Signing in with the OpenIddict authentiction scheme trigger OpenIddict to issue a code (which can be exchanged for an access token)
         return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }
-
+    
     [HttpPost("~/connect/token")]
     public async Task<IActionResult> Exchange()
     {
@@ -97,9 +100,39 @@ public class AuthorizationController(UserManager<ApplicationUser> userManager) :
         {
             claimsPrincipal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
         }
+        else if (request.IsClientCredentialsGrantType())
+        {
+            var identity = new ClaimsIdentity(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+            claimsPrincipal = new ClaimsPrincipal(identity);
+    
+            identity.AddClaim(new Claim("client_id", request.ClientId ?? string.Empty));
+            identity.AddClaim(OpenIddictConstants.Claims.Subject, request.ClientId ?? string.Empty);
+            
+            claimsPrincipal.SetScopes(request.GetScopes());
+        
+            var scopeManager = HttpContext.RequestServices.GetRequiredService<IOpenIddictScopeManager>();
+
+            var audiences = new HashSet<string>();
+
+            foreach (var scope in request.GetScopes())
+            {
+                var scopeDescriptor = await scopeManager.FindByNameAsync(scope);
+                if (scopeDescriptor is not null)
+                {
+                    var resources = await scopeManager.GetResourcesAsync(scopeDescriptor);
+                    audiences.UnionWith(resources);
+                }
+            }
+            
+            claimsPrincipal.SetAudiences(audiences);
+        }
+        else if (request.IsRefreshTokenGrantType())
+        {
+            claimsPrincipal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
+        }
         else
         {
-            throw new InvalidOperationException();
+            return BadRequest(new { error = "unsupported_grant_type" });
         }
 
         if (claimsPrincipal == null) claimsPrincipal = new ClaimsPrincipal();
@@ -107,6 +140,7 @@ public class AuthorizationController(UserManager<ApplicationUser> userManager) :
         // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
         return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }
+   
     
     [HttpGet("~/connect/endsession")]
     [HttpPost("~/connect/endsession")]
@@ -118,27 +152,16 @@ public class AuthorizationController(UserManager<ApplicationUser> userManager) :
         //Important, this method should never return anything.
     }
     
-    /*
     [HttpGet("~/connect/userinfo")]
     [HttpPost("~/connect/userinfo")]
     [Authorize(AuthenticationSchemes = "OpenIddict.Validation.AspNetCore")]
     public async Task<ActionResult<UserInfoDTO>> GetUserInfo()
     {
         var userId = User.FindFirstValue(OpenIddictConstants.Claims.Subject);
-
         if (userId is null) return BadRequest();
+      
+        var res = await messageBus.InvokeAsync<UserInfoDTO>(new GetUserInfoRequest(userId));
         
-        var user = await userManager.FindByIdAsync(userId).ConfigureAwait(false);
-        if  (user is null) return NotFound();
-        
-        var roles = (await userManager.GetRolesAsync(user).ConfigureAwait(false)).ToList();
-
-        return Ok(
-            new UserInfoDTO(
-                user.Id,
-                user.Email ?? "",
-                user.FirstName,
-                user.LastName
-        ));
-    }*/
+        return Ok(res);
+    }
 }

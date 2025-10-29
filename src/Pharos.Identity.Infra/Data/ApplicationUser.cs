@@ -10,5 +10,7 @@ public class ApplicationUser : IdentityUser
     
     [MaxLength(100)]
     public string LastName { get; set; } = String.Empty;
-
+    
+    public string AvatarPath { get; set; } = String.Empty;
+    public Guid? AvatarFileId { get; set; } = Guid.Empty;
 }

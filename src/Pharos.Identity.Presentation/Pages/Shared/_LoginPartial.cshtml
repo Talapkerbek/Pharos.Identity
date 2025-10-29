@@ -1,28 +1,69 @@
-@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using Microsoft.Extensions.Localization
+@using Pharos.Identity.Infra
 @using Pharos.Identity.Infra.Data
 
+@inject IStringLocalizer<SharedResource> Localizer
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+<ul class="navbar-nav ms-auto align-items-center flex-column flex-sm-row gap-2 gap-sm-3">
+    
+    <li class="nav-item me-2 ">
+        <a href="/Identity/Account/Manage" class="nav-link text-dark fw-semibold" style="width: 200px;">
+            @(User.FindFirstValue("FirstName") + " " + User.FindFirstValue("LastName"))
+        </a>
     </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
+    
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <form id="logoutForm" class="d-inline" asp-area="Identity" asp-page="/Account/Logout">
+                <button id="logout" type="submit" class="btn btn-outline-secondary" style="width: 180px">
+                    @Localizer["Logout"]
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="btn btn-primary btn-sm" id="login" asp-area="Identity" asp-page="/Account/Login">
+                @Localizer["Login"]
+            </a>
+        </li>
+    }
+
+    <li class="nav-item w-100 w-sm-auto">
+        <select class="form-select form-select-sm" id="languageSelect"
+                onchange="handleLanguageChange(event)"
+                style="min-width: 110px; max-width: 140px;">
+            <option value="default">Language</option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="kk">Қазақша</option>
+        </select>
     </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+
 </ul>
+
+<script>
+    function handleLanguageChange(e) {
+        const lang = e.target.value;
+        if (lang === "default") return;
+
+        localStorage.setItem("culture", lang);
+        document.cookie = `.AspNetCore.Culture=c=${lang}|uic=${lang}; path=/`;
+        window.location.reload();
+    }
+</script>
+
+<script>
+    function handleLanguageChange(e) {
+        const lang = e.target.value;
+        if (lang === "default") return;
+
+        localStorage.setItem("culture", lang);
+        document.cookie = `.AspNetCore.Culture=c=${lang}|uic=${lang}; path=/`;
+        window.location.reload();
+    }
+</script>
