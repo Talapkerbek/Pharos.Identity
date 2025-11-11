@@ -8,46 +8,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Pharos</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-              integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    </environment>
-
-    <link rel="stylesheet" href="~/css/authPages.css" />
     
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="h-100 w-100 mb-0">
+<body class="relative w-[100vw] min-h-[100vh]">
 
 @{
     var path = ViewContext.HttpContext.Request.Path.Value ?? "";
+    var isManagePage = path.ToLower().Contains("manage");
 }
 
-@if (!path.StartsWith("/Identity/Account/Login", StringComparison.OrdinalIgnoreCase))
+@if (isManagePage)
 {
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom mb-4">
-            <div style="display: flex; width: 100%; margin-left: 20px; margin-right: 20px; justify-content: space-between">
-                <!-- Логотип / бренд -->
-                <a class="navbar-brand fw-bold text-primary" href="~/Identity/Account/Manage">Pharos Account Management</a>
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 sticky top-0 z-50">
+        <div class="flex min-h-16 items-center mx-auto border-b bg-background/95 backdrop-blur-[backdrop-filter]:bg-background/60">
+            <a class="flex items-center gap-2" href="/">
+                <img src="/imgs/logo.svg" alt="Logo" class="size-9">
+                <div class="flex flex-col">
+                    <p class="text-3xl font-bold">Pharos</p>
+                    <p class="text-xs font-semibold">Account management</p>
+                </div>
+            </a>
 
-                <!-- Кнопка для мобильного меню -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Навигация и профиль -->
+                @*<!-- Навигация и профиль -->
                 <div class="collapse navbar-collapse flex-lg-row-reverse" id="navbarContent">
                     <ul class="navbar-nav ms-auto align-items-center">
-                        @* Здесь можно добавить ссылки, если нужно *@
+                        $1$ Здесь можно добавить ссылки, если нужно #1#
                         <li class="nav-item">
                             @{
                                 var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
@@ -62,15 +48,17 @@
                             }
                         </li>
                     </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+            </div>*@
+        </div>
+    </div>
 }
 
+<button id="darkModeToggle" class="px-4 py-2 bg-primary text-black dark:text-white rounded absolute bottom-3 right-3 z-50">
+    Toggle Theme
+</button>
 
 <partial name="_CookieConsentPartial" optional/>
-<main class="h-100 w-100 overflow-hidden">
+<main class="overflow-x-hidden @( isManagePage ? "container mx-auto px-4 md:px-6 lg:px-8" : "w-[100vw]") ">
     @RenderBody()
 </main>
 
@@ -87,17 +75,32 @@
             crossorigin="anonymous"
             integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2">
         </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-            asp-fallback-src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            crossorigin="anonymous"
-            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj">
-        </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+<script>
+    const toggleButton = document.getElementById('darkModeToggle');
+    console.log("ASDASa")
+    
+    // Optional: load saved preference
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+
+    toggleButton.addEventListener('click', () => {
+        const html = document.documentElement;
+
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -7,29 +7,14 @@
 @{
     ViewData["Title"] = Localizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
+    var cardClasses = "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm";
 }
 
-<div>
-<h3 style="font-family: Montserrat, sans-serif; font-weight: 600; margin-bottom: 25px; text-align: center;">
-    @ViewData["Title"]
-</h3>
+<div class="w-full mx-auto">
 
 <partial name="_StatusMessage" for="StatusMessage" />
 
-<div style="
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 30px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    background: white;
-    max-width: 520px;
-    margin: 0 auto;
-    font-family: Montserrat, sans-serif;
-">
+<div class="@cardClasses w-full lg:w-[500px] px-5">
 
     <!-- Avatar preview -->
     <div style="text-align: center;">

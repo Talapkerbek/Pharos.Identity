@@ -6,15 +6,19 @@
 
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var cardClasses = "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm";
 }
 
-<div style="width: 100%">
-    <div class="row flex-md-nowrap m-lg-0 justify-content-center">
+<div>
+    <nav class="@cardClasses px-5">
         <!-- Sidebar -->
-        <nav class="col-10 bg-light border rounded shadow-sm p-3 mb-3 mb-md-0">
-            <h6 class="text-uppercase text-secondary fw-semibold mb-3 small">@Localizer["Settings"]</h6>
+        <div>
+            <h6 class="uppercase text-secondary font-semibold">@Localizer["Settings"]</h6>
+            <div class="w-full h-[1px] bg-muted-foreground mt-2"></div>
+        </div>
+       
 
-            <ul class="nav nav-pills flex-row flex-md-column gap-1 w-100 justify-content-around justify-content-md-start">
+        <ul class="flex flex-col gap-5 nav nav-pills flex-md-column gap-1 w-100 justify-content-around justify-content-md-start">
                 <li class="nav-item">
                     <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
                         <i class="bi bi-person-circle me-2"></i>@Localizer["Profile"]
@@ -49,9 +53,8 @@
                     </a>
                 </li>
             </ul>
-        </nav>
 
-    </div>
+    </nav>
 </div>
 
 <style>

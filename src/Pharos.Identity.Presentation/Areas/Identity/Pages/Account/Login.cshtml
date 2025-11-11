@@ -5,82 +5,92 @@
     ViewData["Title"] = "Login";
 }
 
+@{
+    var inputClasses = "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm";
+}
 
-<div class="d-flex flex-column h-100 w-100 align-items-center justify-content-center position-relative main-wrapper">
-    <p class="position-absolute" style="color: #C6553B; top: 20px; left: 20px; font-size: 20px; font-weight: 900;">Pharos</p>
-    
-    <div class="bg-white d-flex flex-column rounded-5 login-container"
-         style="padding: 50px 40px; box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08); width: 540px;">
 
+<div class="relative flex min-h-svh flex-col items-center justify-center w-full overflow-hidden">
+    <a class="absolute left-3 top-3 flex items-center gap-2" href="/">
+        <img src="/imgs/logo.svg" alt="Logo" class="size-9">
+        <p class="text-4xl font-bold">Pharos</p>
+    </a>
+
+    <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm p-7 shadow-2xl"
+         style="box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
         <div class="d-flex justify-content-between">
             <div class="d-flex gap-0 flex-column mb-4">
-                <p style="color: black; font-size: 20px; font-weight: 400; word-wrap: break-word">Welcome to Pharos</p>
-                <h1 style="color: black; font-size: 55px; font-weight: 500; word-wrap: break-word">Sign in</h1>
+                <p class="text-muted-foreground">Welcome back!</p>
+                <h1 class="text-5xl font-semibold">Sign in</h1>
             </div>
         </div>
 
         <section class="">
-            <form id="account" method="post">
-                <p style="color: black; font-size: 16px; font-weight: 400; word-wrap: break-word; margin-bottom: 14px;">Enter your username or email address</p>
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-4">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
-                    <label asp-for="Input.Email" class="form-label bg-transparent">Username or Email address</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <form id="account" method="post" class="space-y-4">
+                <div class="flex flex-col">
+                    <div asp-validation-summary="ModelOnly" class="text-destructive text-xs mt-2"></div>
+                    <div class="flex flex-col">
+                        <label asp-for="Input.Email">Username or Email address</label>
+                        <input asp-for="Input.Email" class="@inputClasses" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
+                        <span asp-validation-for="Input.Email" class="text-destructive text-xs mt-2"></span>
+                    </div>
                 </div>
+                
+                <div>
+                    <div class="flex flex-col">
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <div class="flex-1 flex flex-col items-start gap-2">
+                            <input
+                                asp-for="Input.Password"
+                                class="@inputClasses"
+                                id="passwordInput"
+                                type="password"
+                                autocomplete="current-password"
+                                placeholder="Type your strongPassword..."/>
+                            <span asp-validation-for="Input.Password" class="text-destructive text-xs"></span>
+                            @*<button
+                                id="toggleBtn"
+                                type="button"
+                                class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                                onclick="togglePassword()"
+                                tabindex="-1">
+                                👁
+                            </button>*@
+                        </div>
+                            
 
-                <p style="color: black; font-size: 16px; font-weight: 400; word-wrap: break-word; margin-bottom: 14px;">Enter your password</p>
-                <div class="form-floating mb-3 position-relative">
-                    <input 
-                        asp-for="Input.Password" 
-                        class="form-control" 
-                        id="passwordInput"
-                        type="password"
-                        autocomplete="current-password" 
-                        placeholder="password"
-                    />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-
-                    <!-- Глазок -->
-                    <button 
-                        id="toggleBtn"
-                        type="button" 
-                        class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
-                        onclick="togglePassword()"
-                        tabindex="-1"
-                    >
-                        👁
-                    </button>
+                        <!-- Глазок -->
+                       
+                    </div>
                 </div>
-
-                <p class="" style="text-align: right; color: #AD3113; font-size: 13px;  font-weight: 400; word-wrap: break-word; margin-bottom: 32px">
+               
+                <p class="text-muted-foreground hover:text-foreground text-xs text-right">
                     <a id="forgot-password" asp-page="./ForgotPassword" class="">Forgot password</a>
                 </p>
+                
+                <button id="login-submit" type="submit" class="w-[400px] bg-primary/70 py-1 rounded-lg hover:bg-primary cursor-pointer">
+                    <p style="width: 56px; color: white; font-size: 16px; font-weight: 500; word-wrap: break-word" class="mx-auto">
+                    Sign in
+                    <p/>
+                </button>
 
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg text-white" style="width: 451px; height: 54px; background: #E48700; box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.30); border-radius: 10px">
-                        <p style="width: 56px; color: white; font-size: 16px; font-weight: 500; word-wrap: break-word" class="mx-auto">
-                        Sign in
-                        <p/>
-                    </button>
-                </div>
+               
 
-                <div class="mt-2">
+                @*<div class="mt-2">
                     <p>
                         <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                     </p>
-                </div>
+                </div>*@
             </form>
         </section>
     </div>
 
-    <div class="position-absolute bg-left h-100 w-50 d-flex align-items-center justify-content-center" style="left: 0; z-index: -50">
-        <img src="~/imgs/leftboy.png">
+    @*<div class="absolute bg-blue-200 dark:hidden h-full w-1/2 hidden lg:flex items-center justify-center left-0 -z-50 top-0">
+        <img src="~/imgs/leftboy.png" class="hidden 2xl:block absolute right-50 w-[500px]">
     </div>
-    <div class="position-absolute bg-right h-100 w-50 d-flex align-items-center justify-content-center" style="right: 0; z-index: -50">
-        <img src="~/imgs/rightboy.png">
-    </div>
+    <div class="absolute bg-background h-full w-1/2 hidden lg:flex items-center justify-center -z-50 right-0 top-0">
+        <img src="~/imgs/rightboy.png" class="hidden 2xl:block absolute right-50 w-[300px]">
+    </div>*@
 </div>
 
 
