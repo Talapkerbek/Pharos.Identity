@@ -6,4 +6,5 @@ public class IdentitySettings
     public string AdminUserPassword { get; set; } = String.Empty;
     
     public string ClientAppUrl { get; set; } = String.Empty;
+    public string AdminId { get; set; } =  String.Empty;
 }

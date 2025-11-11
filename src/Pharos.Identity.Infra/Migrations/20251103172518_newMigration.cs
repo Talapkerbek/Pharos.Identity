@@ -3,37 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Pharos.Identity.Infra.Pharos.Identity.Infra.Data.Migrations
+namespace Pharos.Identity.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial2 : Migration
+    public partial class newMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                name: "AvatarFileId",
+                name: "TenantId",
                 table: "AspNetUsers",
                 type: "uuid",
                 nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "AvatarPath",
-                table: "AspNetUsers",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AvatarFileId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "AvatarPath",
+                name: "TenantId",
                 table: "AspNetUsers");
         }
     }

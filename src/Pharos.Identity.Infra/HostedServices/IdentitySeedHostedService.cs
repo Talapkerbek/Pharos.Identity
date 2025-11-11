@@ -41,6 +41,7 @@ public class IdentitySeedHostedService : IHostedService
         {
             adminUser = new ApplicationUser()
             {
+                Id = _settings.AdminId,
                 UserName = "admin@gmail.com",
                 Email = "admin@gmail.com",
                 SecurityStamp = Guid.NewGuid().ToString(),

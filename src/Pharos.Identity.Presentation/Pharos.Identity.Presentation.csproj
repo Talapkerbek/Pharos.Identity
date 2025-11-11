@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pharos.Identity.Application\Pharos.Identity.Application.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
 </Project>

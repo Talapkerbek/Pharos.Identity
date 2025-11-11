@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pharos.Identity.Infra\Pharos.Identity.Infra.csproj" />
+      
   </ItemGroup>
 
 </Project>

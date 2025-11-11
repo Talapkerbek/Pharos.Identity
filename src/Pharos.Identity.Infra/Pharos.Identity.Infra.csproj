@@ -24,17 +24,19 @@
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="7.1.0" />
     <PackageReference Include="Pharos.Identity.Contracts" Version="1.0.4" />
     <PackageReference Include="Pharos.Media.Contracts" Version="1.0.8" />
+    <PackageReference Include="StackExchange.Redis" Version="2.9.32" />
     
     <PackageReference Include="WolverineFx.EntityFrameworkCore" Version="4.11.0" />
     <PackageReference Include="WolverineFx.Postgresql" Version="4.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
     <PackageReference Include="WolverineFx.FluentValidation" Version="4.12.1" />
     <PackageReference Include="WolverineFx.Kafka" Version="4.12.1" />
+
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Pharos.FGA.AspNetCore" Version="1.0.1" />
     
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

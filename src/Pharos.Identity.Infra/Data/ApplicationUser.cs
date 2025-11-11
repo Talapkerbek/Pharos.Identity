@@ -13,4 +13,5 @@ public class ApplicationUser : IdentityUser
     
     public string AvatarPath { get; set; } = String.Empty;
     public Guid? AvatarFileId { get; set; } = Guid.Empty;
+    public Guid? TenantId { get; set; }
 }

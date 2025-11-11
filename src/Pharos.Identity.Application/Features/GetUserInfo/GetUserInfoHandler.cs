@@ -13,7 +13,7 @@ public class GetUserInfoHandler
         if (user is null) throw new NotFoundException($"User with Id {request.UserId} not found");
         
         var roles = (await userManager.GetRolesAsync(user).ConfigureAwait(false)).ToList();
-
+        
         return new UserInfoDTO(
             user.Id,
             user.FirstName,

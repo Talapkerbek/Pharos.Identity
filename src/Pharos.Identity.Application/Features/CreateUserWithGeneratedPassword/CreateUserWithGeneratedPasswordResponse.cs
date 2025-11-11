@@ -1,0 +1,3 @@
+﻿namespace Pharos.Identity.Application.Features.CreateUserWithGeneratedPassword;
+
+public record CreateUserWithGeneratedPasswordResponse(string Id, string TemporaryPassword);
