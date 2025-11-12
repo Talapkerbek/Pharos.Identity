@@ -106,6 +106,8 @@ public static class Extensions
             
             opts.UseFluentValidation();
 
+            opts.Services.AddWolverineExtension<SampleExtension>();
+
             host.UseResourceSetupOnStartup();
         });
         

@@ -35,22 +35,22 @@ public class IdentitySeedHostedService : IHostedService
         
         await CreateRoleIfNotExistAsync(Roles.SuperAdmin, roleManager);
 
-        var adminUser = await userManager.FindByEmailAsync(_settings.AdminUserEmail);
+        var adminUser = await userManager.FindByEmailAsync("islambekgazizovv@gmail.com");
 
         if (adminUser == null)
         {
             adminUser = new ApplicationUser()
             {
-                Id = _settings.AdminId,
-                UserName = "admin@gmail.com",
-                Email = "admin@gmail.com",
+                Id = Guid.NewGuid().ToString(),
+                UserName = "islambekgazizovv@gmail.com",
+                Email = "islambekgazizovv@gmail.com",
                 SecurityStamp = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
-                FirstName = "Админбек",
-                LastName = "Админович"
+                FirstName = "Исламбек",
+                LastName = "Газизов"
             };
 
-            var isSuccess = await userManager.CreateAsync(adminUser, _settings.AdminUserPassword);
+            var isSuccess = await userManager.CreateAsync(adminUser, "islambekgazizovv@gmail.com");
             
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(isSuccess.Succeeded);

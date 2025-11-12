@@ -19,6 +19,16 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\.gitignore" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\bower.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\index-svg.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\index.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\index.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\jquery.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\qrcode.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\qrcode.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\qr\README.md" />
   </ItemGroup>
 
 </Project>

@@ -6,90 +6,58 @@
 
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
-    var cardClasses = "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm";
 }
 
-<div>
-    <nav class="@cardClasses px-5">
-        <!-- Sidebar -->
+<div class="w-full">
+    <nav class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm px-5">
+        <!-- Header -->
         <div>
             <h6 class="uppercase text-secondary font-semibold">@Localizer["Settings"]</h6>
-            <div class="w-full h-[1px] bg-muted-foreground mt-2"></div>
+            <div class="h-px bg-muted mt-2"></div>
         </div>
-       
 
-        <ul class="flex flex-col gap-5 nav nav-pills flex-md-column gap-1 w-100 justify-content-around justify-content-md-start">
-                <li class="nav-item">
-                    <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
-                        <i class="bi bi-person-circle me-2"></i>@Localizer["Profile"]
+        <!-- Links -->
+        <ul class="flex flex-col gap-2">
+            <li>
+                <a asp-page="./Index"
+                   class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.IndexNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                    <i class="bi bi-person-circle text-lg"></i>@Localizer["Profile"]
+                </a>
+            </li>
+            <li>
+                <a asp-page="./Email"
+                   class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.EmailNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                    <i class="bi bi-envelope text-lg"></i>@Localizer["Email"]
+                </a>
+            </li>
+            <li>
+                <a asp-page="./ChangePassword"
+                   class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.ChangePasswordNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                    <i class="bi bi-lock text-lg"></i>@Localizer["Password"]
+                </a>
+            </li>
+            @if (hasExternalLogins)
+            {
+                <li>
+                    <a asp-page="./ExternalLogins"
+                       class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.ExternalLoginsNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                        <i class="bi bi-box-arrow-in-right text-lg"></i>@Localizer["External logins"]
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">
-                        <i class="bi bi-envelope me-2"></i>@Localizer["Email"]
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
-                        <i class="bi bi-lock me-2"></i>@Localizer["Password"]
-                    </a>
-                </li>
-                @if (hasExternalLogins)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" id="external-login" asp-page="./ExternalLogins">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>@Localizer["External logins"]
-                        </a>
-                    </li>
-                }
-                <li class="nav-item">
-                    <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">
-                        <i class="bi bi-shield-lock me-2"></i>@Localizer["Two-factor authentication"]
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">
-                        <i class="bi bi-person-lines-fill me-2"></i>@Localizer["Personal data"]
-                    </a>
-                </li>
-            </ul>
-
+            }
+            <li>
+                <a asp-page="./TwoFactorAuthentication"
+                   class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                    <i class="bi bi-shield-lock text-lg"></i>@Localizer["Two-factor authentication"]
+                </a>
+            </li>
+            <li>
+                <a asp-page="./PersonalData"
+                   class="flex items-center gap-2 px-3 py-2 rounded-md text-card-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 @(ManageNavPages.PersonalDataNavClass(ViewContext) == "active" ? "bg-primary text-primary-foreground" : "")">
+                    <i class="bi bi-person-lines-fill text-lg"></i>@Localizer["Personal data"]
+                </a>
+            </li>
+        </ul>
     </nav>
 </div>
 
-<style>
-    .nav-pills .nav-link {
-        color: #333;
-        font-size: 14px;
-        border-radius: 6px;
-        transition: background-color 0.2s ease, color 0.2s ease;
-        padding: 8px 12px;
-    }
-
-    .nav-pills .nav-link.active,
-    .nav-pills .nav-link:hover {
-        background-color: #0d6efd;
-        color: #fff !important;
-    }
-
-    .nav-pills .nav-link i {
-        font-size: 16px;
-        vertical-align: middle;
-    }
-
-    @@media (max-width: 768px) {
-        nav {
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            border: none !important;
-            margin: auto;
-        }
-
-        .nav-pills {
-            flex-direction: column !important;
-            flex-wrap: wrap;
-            overflow-x: hidden;
-            padding-bottom: 4px;
-        }
-    }
-</style>

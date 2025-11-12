@@ -21,7 +21,7 @@
 @if (isManagePage)
 {
     <div class="container mx-auto px-4 md:px-6 lg:px-8 sticky top-0 z-50">
-        <div class="flex min-h-16 items-center mx-auto border-b bg-background/95 backdrop-blur-[backdrop-filter]:bg-background/60">
+        <div class="flex min-h-16 items-center justify-between mx-auto border-b bg-background/95 backdrop-blur-[backdrop-filter]:bg-background/60 w-full">
             <a class="flex items-center gap-2" href="/">
                 <img src="/imgs/logo.svg" alt="Logo" class="size-9">
                 <div class="flex flex-col">
@@ -30,30 +30,19 @@
                 </div>
             </a>
 
-                @*<!-- Навигация и профиль -->
-                <div class="collapse navbar-collapse flex-lg-row-reverse" id="navbarContent">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        $1$ Здесь можно добавить ссылки, если нужно #1#
-                        <li class="nav-item">
-                            @{
-                                var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
-                            }
-                            @if (result.Success)
-                            {
-                                await Html.RenderPartialAsync("_LoginPartial");
-                            }
-                            else
-                            {
-                                <span class="text-danger">Login partial not found</span>
-                            }
-                        </li>
-                    </ul>
-            </div>*@
+            @{
+                var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
+            }
+            @if (result.Success)
+            {
+                await Html.RenderPartialAsync("_LoginPartial");
+            }
+                
         </div>
     </div>
 }
 
-<button id="darkModeToggle" class="px-4 py-2 bg-primary text-black dark:text-white rounded absolute bottom-3 right-3 z-50">
+<button id="darkModeToggle" class="px-4 py-2 bg-primary text-white rounded absolute bottom-3 right-3 z-50">
     Toggle Theme
 </button>
 

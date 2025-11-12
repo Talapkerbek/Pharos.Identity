@@ -24,6 +24,7 @@
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="7.1.0" />
     <PackageReference Include="Pharos.Identity.Contracts" Version="1.0.4" />
     <PackageReference Include="Pharos.Media.Contracts" Version="1.0.8" />
+    <PackageReference Include="Resend" Version="0.2.1" />
     <PackageReference Include="StackExchange.Redis" Version="2.9.32" />
     
     <PackageReference Include="WolverineFx.EntityFrameworkCore" Version="4.11.0" />

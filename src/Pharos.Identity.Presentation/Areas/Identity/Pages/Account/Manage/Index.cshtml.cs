@@ -185,8 +185,15 @@ namespace Pharos.Identity.Presentation.Areas.Identity.Pages.Account.Manage
                         var errorText = await response.Content.ReadAsStringAsync();
                         throw new Exception($"Upload failed: {(int)response.StatusCode} {errorText}");
                     }
+                    
+                    await _messageBus.InvokeAsync(
+                        new CompleteAvatarUpdateCommand(
+                            Guid.Parse(user.Id),
+                            presigned.UploadId
+                        )
+                    );
                 }
-
+                
                 await _messageBus.InvokeAsync(
                     new CompleteAvatarUpdateCommand(
                         Guid.Parse(user.Id),

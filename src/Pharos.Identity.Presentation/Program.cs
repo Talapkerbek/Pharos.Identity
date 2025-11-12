@@ -4,6 +4,7 @@ using Pharos.Identity.Application.Services.TokenService;
 using Pharos.Identity.Infra;
 using Pharos.Identity.Infra.Auth;
 using Pharos.Identity.Infra.Data;
+using Pharos.Identity.Infra.Email;
 using Pharos.Identity.Infra.Logging;
 using Pharos.Identity.Infra.Redis;
 using Pharos.Identity.Presentation.AppExtensions;
@@ -15,6 +16,7 @@ builder.Services.ConfigureCors();
 builder.Services.AddLocalizedRazor();
 builder.Services
     .AddMemoryCache()
+    .AddEmailSender(builder.Configuration)
     .AddRedisCache(builder.Configuration)
     .AddTokenService()
     .AddMediaServiceClient()

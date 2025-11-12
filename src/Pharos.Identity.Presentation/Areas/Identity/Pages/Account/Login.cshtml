@@ -5,125 +5,67 @@
     ViewData["Title"] = "Login";
 }
 
-@{
-    var inputClasses = "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm";
-}
-
-
-<div class="relative flex min-h-svh flex-col items-center justify-center w-full overflow-hidden">
+<div class="relative flex min-h-screen flex-col items-center justify-center w-full overflow-hidden">
     <a class="absolute left-3 top-3 flex items-center gap-2" href="/">
-        <img src="/imgs/logo.svg" alt="Logo" class="size-9">
+        <img src="/imgs/logo.svg" alt="Logo" class="h-9 w-9">
         <p class="text-4xl font-bold">Pharos</p>
     </a>
 
-    <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm p-7 shadow-2xl"
-         style="box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
-        <div class="d-flex justify-content-between">
-            <div class="d-flex gap-0 flex-column mb-4">
-                <p class="text-muted-foreground">Welcome back!</p>
-                <h1 class="text-5xl font-semibold">Sign in</h1>
-            </div>
+    <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 px-7 w-[400px] lg:w-[500px]" style="box-shadow: 0 4px 6px rgba(0, 0, 0.5, 0.4);">
+        <div class="flex flex-col gap-1 mb-4">
+            <p class="text-muted-foreground">Welcome back!</p>
+            <h1 class="text-5xl font-semibold">Sign in</h1>
         </div>
 
-        <section class="">
-            <form id="account" method="post" class="space-y-4">
-                <div class="flex flex-col">
-                    <div asp-validation-summary="ModelOnly" class="text-destructive text-xs mt-2"></div>
-                    <div class="flex flex-col">
-                        <label asp-for="Input.Email">Username or Email address</label>
-                        <input asp-for="Input.Email" class="@inputClasses" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
-                        <span asp-validation-for="Input.Email" class="text-destructive text-xs mt-2"></span>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="flex flex-col">
-                        <label asp-for="Input.Password" class="form-label">Password</label>
-                        <div class="flex-1 flex flex-col items-start gap-2">
-                            <input
-                                asp-for="Input.Password"
-                                class="@inputClasses"
-                                id="passwordInput"
-                                type="password"
-                                autocomplete="current-password"
-                                placeholder="Type your strongPassword..."/>
-                            <span asp-validation-for="Input.Password" class="text-destructive text-xs"></span>
-                            @*<button
-                                id="toggleBtn"
-                                type="button"
-                                class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
-                                onclick="togglePassword()"
-                                tabindex="-1">
-                                👁
-                            </button>*@
-                        </div>
-                            
+        <form id="account" method="post" class="flex flex-col gap-6 w-full max-w-md">
+            <div asp-validation-summary="ModelOnly" class="text-destructive text-sm"></div>
 
-                        <!-- Глазок -->
-                       
-                    </div>
-                </div>
-               
-                <p class="text-muted-foreground hover:text-foreground text-xs text-right">
-                    <a id="forgot-password" asp-page="./ForgotPassword" class="">Forgot password</a>
-                </p>
-                
-                <button id="login-submit" type="submit" class="w-[400px] bg-primary/70 py-1 rounded-lg hover:bg-primary cursor-pointer">
-                    <p style="width: 56px; color: white; font-size: 16px; font-weight: 500; word-wrap: break-word" class="mx-auto">
-                    Sign in
-                    <p/>
+            <!-- Email / Username -->
+            <div class="relative">
+                <input asp-for="Input.Email"
+                       class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                       placeholder="Email or Username" autocomplete="username" />
+                <label asp-for="Input.Email"
+                       class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary">
+                    Username or Email
+                </label>
+                <span asp-validation-for="Input.Email" class="text-destructive text-sm"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="relative">
+                <input asp-for="Input.Password"
+                       id="passwordInput"
+                       type="password"
+                       class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                       placeholder="Password" autocomplete="current-password" />
+                <label asp-for="Input.Password"
+                       class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary">
+                    Password
+                </label>
+                <span asp-validation-for="Input.Password" class="text-destructive text-sm"></span>
+
+                <!-- Eye toggle -->
+                <button type="button" onclick="togglePassword()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                    👁
                 </button>
+            </div>
 
-               
+            <!-- Forgot password -->
+            <p class="text-muted-foreground text-xs text-right">
+                <a asp-page="./ForgotPassword" class="hover:text-foreground">Forgot password?</a>
+            </p>
 
-                @*<div class="mt-2">
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>*@
-            </form>
-        </section>
+            <!-- Sign in button -->
+            <button type="submit"
+                    class="w-full py-3 bg-primary text-primary-foreground font-semibold rounded-md shadow-sm hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200">
+                Sign in
+            </button>
+        </form>
     </div>
-
-    @*<div class="absolute bg-blue-200 dark:hidden h-full w-1/2 hidden lg:flex items-center justify-center left-0 -z-50 top-0">
-        <img src="~/imgs/leftboy.png" class="hidden 2xl:block absolute right-50 w-[500px]">
-    </div>
-    <div class="absolute bg-background h-full w-1/2 hidden lg:flex items-center justify-center -z-50 right-0 top-0">
-        <img src="~/imgs/rightboy.png" class="hidden 2xl:block absolute right-50 w-[300px]">
-    </div>*@
 </div>
 
-
-@*<div class="col-md-6 col-md-offset-2 text-white">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>*@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
@@ -131,17 +73,5 @@
             const input = document.getElementById('passwordInput');
             input.type = input.type === 'password' ? 'text' : 'password';
         }
-
-        let passwordInput = document.getElementById('passwordInput');
-        let toggleButton = document.getElementById('toggleBtn');
-        
-        passwordInput.addEventListener("change", e => {
-            if (e.target.value === "") {
-                toggleButton.styles.display = "none"
-            }
-            else {
-                toggleButton.style.display = "block"
-            }
-        });
     </script>
 }

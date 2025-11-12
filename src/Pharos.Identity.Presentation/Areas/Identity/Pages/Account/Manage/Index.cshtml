@@ -1,109 +1,61 @@
 ﻿@page
+@model IndexModel
 @using Microsoft.Extensions.Localization
 @using Pharos.Identity.Infra
-@model IndexModel
 @inject IStringLocalizer<SharedResource> Localizer
 
 @{
     ViewData["Title"] = Localizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
-    var cardClasses = "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm";
 }
 
-<div class="w-full mx-auto">
+<div class="w-full">
+    <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm w-full lg:w-[500px] px-5">
 
-<partial name="_StatusMessage" for="StatusMessage" />
-
-<div class="@cardClasses w-full lg:w-[500px] px-5">
-
-    <!-- Avatar preview -->
-    <div style="text-align: center;">
-        <div style="position: relative; display: inline-block;">
-            <img id="avatar-preview"
-                 src="@Model.Input.InitialAvatarPath"
-                 alt="Avatar"
-                 style="
-                     width: 120px;
-                     height: 120px;
-                     border-radius: 50%;
-                     object-fit: cover;
-                     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-                     transition: transform 0.2s ease;
-                     cursor: pointer;
-                 "
-                 onmouseover="this.style.transform='scale(1.05)'"
-                 onmouseout="this.style.transform='scale(1)'"
-            />
+        <!-- Avatar preview -->
+        <div class="flex justify-center">
+            <div class="relative inline-block">
+                <img id="avatar-preview"
+                     src="@Model.Input.InitialAvatarPath"
+                     alt="Avatar"
+                     class="w-[120px] h-[120px] rounded-full object-cover shadow-md transition-transform duration-200 ease-in-out cursor-pointer hover:scale-105"
+                     onerror="this.onerror=null; this.src='/imgs/user.svg';" />
+            </div>
         </div>
 
-        
+        <!-- Profile form -->
+        <form id="profile-form" method="post" enctype="multipart/form-data" class="flex flex-col gap-6">
+            <input type="file" id="avatarInput" name="AvatarFile" accept="image/*" class="hidden" />
+
+            <!-- First Name -->
+            <div class="relative">
+                <input asp-for="Input.FirstName"
+                       class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                       placeholder="First Name" />
+                <label asp-for="Input.FirstName"
+                       class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary">
+                </label>
+                <span asp-validation-for="Input.FirstName" class="text-destructive text-sm"></span>
+            </div>
+
+            <!-- Last Name -->
+            <div class="relative">
+                <input asp-for="Input.LastName"
+                       class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                       placeholder="Last Name" />
+                <label asp-for="Input.LastName"
+                       class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary">
+                </label>
+                <span asp-validation-for="Input.LastName" class="text-destructive text-sm"></span>
+            </div>
+
+            <!-- Save Button -->
+            <button type="submit"
+                    class="w-full py-3 px-4 bg-primary text-primary-foreground font-semibold rounded-md shadow-sm hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200">
+                @Localizer["Save"]
+            </button>
+        </form>
     </div>
-
-    <!-- Profile form -->
-    <form id="profile-form"
-          method="post"
-          enctype="multipart/form-data"
-          style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
-
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"
-             style="color: #d9534f; font-size: 14px;"></div>
-        
-        <input type="file"
-               id="avatarInput"
-               name="AvatarFile"
-               accept="image/*"
-               style="display:none;" />
-
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-            <label asp-for="Input.FirstName" style="font-weight: 600; font-size: 15px;"></label>
-            <input asp-for="Input.FirstName"
-                   style="
-                       padding: 10px 12px;
-                       border: 1px solid #ccc;
-                       border-radius: 8px;
-                       font-size: 14px;
-                       transition: border-color 0.2s;
-                   "
-                   onfocus="this.style.borderColor='#007bff'"
-                   onblur="this.style.borderColor='#ccc'" />
-            <span asp-validation-for="Input.FirstName" style="color: #d9534f; font-size: 13px;"></span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-            <label asp-for="Input.LastName" style="font-weight: 600; font-size: 15px;"></label>
-            <input asp-for="Input.LastName"
-                   style="
-                       padding: 10px 12px;
-                       border: 1px solid #ccc;
-                       border-radius: 8px;
-                       font-size: 14px;
-                       transition: border-color 0.2s;
-                   "
-                   onfocus="this.style.borderColor='#007bff'"
-                   onblur="this.style.borderColor='#ccc'" />
-            <span asp-validation-for="Input.LastName" style="color: #d9534f; font-size: 13px;"></span>
-        </div>
-
-        <button id="update-profile-button"
-                type="submit"
-                style="
-                    width: 100%;
-                    padding: 12px;
-                    background-color: #007bff;
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    font-size: 15px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: background-color 0.25s ease, transform 0.15s ease;
-                "
-                onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-1px)'"
-                onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='none'">
-            @Localizer["Save"]
-        </button>
-    </form>
-</div>
 </div>
 
 @section Scripts {
@@ -111,11 +63,9 @@
     <script>
         const fileInput = document.getElementById('avatarInput');
         const preview = document.getElementById('avatar-preview');
-        
-        preview.addEventListener("click", (event) => {
-            fileInput.click()
-        })
-        
+
+        preview.addEventListener("click", () => fileInput.click());
+
         fileInput?.addEventListener('change', e => {
             const file = e.target.files[0];
             if (!file) return;

@@ -51,6 +51,7 @@ public class AuthorizationController(IMessageBus messageBus) : Controller
             new Claim("firstName", result.Principal.FindFirstValue("FirstName") ?? "NotFound").SetDestinations(OpenIddictConstants.Destinations.IdentityToken),
             new Claim("lastName", result.Principal.FindFirstValue("LastName") ?? "NotFound").SetDestinations(OpenIddictConstants.Destinations.IdentityToken),
             new Claim("email", result.Principal.FindFirstValue("email") ?? "NotFound").SetDestinations(OpenIddictConstants.Destinations.IdentityToken),
+            new Claim("image", result.Principal.FindFirstValue("image") ?? "NotFound").SetDestinations(OpenIddictConstants.Destinations.IdentityToken),
         };
         
         var roleClaims = result.Principal.FindAll("roles");

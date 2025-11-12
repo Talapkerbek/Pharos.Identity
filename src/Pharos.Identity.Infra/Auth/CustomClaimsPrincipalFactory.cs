@@ -16,6 +16,7 @@ public class CustomClaimsPrincipalFactory(UserManager<ApplicationUser> userManag
         claims.AddClaim(new Claim("FirstName", user.FirstName));
         claims.AddClaim(new Claim("LastName", user.LastName));
         claims.AddClaim(new Claim("sub", user.Id));
+        claims.AddClaim(new Claim("image", user.AvatarPath));
         
         foreach (var role in roles)
         {

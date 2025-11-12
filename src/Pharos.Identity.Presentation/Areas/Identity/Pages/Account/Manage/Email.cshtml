@@ -5,36 +5,64 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3 class="text-2xl font-semibold mb-6">@ViewData["Title"]</h3>
+
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="md:col-span-1">
+        <form id="email-form" method="post" class="space-y-6">
+            <div asp-validation-summary="All" class="text-destructive" role="alert"></div>
+
             @if (Model.IsEmailConfirmed)
             {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
-                        </div>
-                    <label asp-for="Email" class="form-label"></label>
+                <!-- Confirmed email (read-only) -->
+                <div class="relative">
+                    <input asp-for="Email"
+                           class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                           placeholder="Your current email"
+                           disabled />
+                    <label asp-for="Email"
+                           class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary"></label>
                 </div>
             }
             else
             {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                <!-- Unconfirmed email + Send verification -->
+                <div class="relative space-y-2">
+                    <input asp-for="Email"
+                           class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                           placeholder="Your current email"
+                           disabled />
+                    <label asp-for="Email"
+                           class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary"></label>
+                    <button id="email-verification"
+                            type="submit"
+                            asp-page-handler="SendVerificationEmail"
+                            class="text-primary text-sm underline hover:text-primary/90">
+                        Send verification email
+                    </button>
                 </div>
             }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+
+            <!-- New Email -->
+            <div class="relative">
+                <input asp-for="Input.NewEmail"
+                       class="peer w-full rounded-md border border-border bg-card px-3 pt-5 pb-2 text-card-foreground placeholder-transparent focus:ring-2 focus:ring-primary focus:outline-none"
+                       placeholder="Please enter new email"
+                       autocomplete="email"
+                       aria-required="true" />
+                <label asp-for="Input.NewEmail"
+                       class="absolute left-3 top-2 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary"></label>
+                <span asp-validation-for="Input.NewEmail" class="text-destructive text-sm"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
+
+            <button id="change-email-button"
+                    type="submit"
+                    asp-page-handler="ChangeEmail"
+                    class="w-full py-3 px-4 bg-primary text-primary-foreground font-semibold rounded-md shadow-sm hover:bg-primary/90 transition duration-200">
+                Change email
+            </button>
         </form>
     </div>
 </div>
